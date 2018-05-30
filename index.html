@@ -1,0 +1,818 @@
+
+
+<script>
+
+const wordTypes = {
+	noun: ["aardvark", "abacus", "abbey", "abdomen", "ability", "abolishment", "abroad", "abuse", "accelerant", "accelerator", 
+		"access", "accident", "accommodation", "accompanist", "accordion", "account", "accountant", "achiever", "acid", "acknowledgment", 
+		"acoustic", "acoustics", "acrylic", "act", "action", "activity", "actor", "actress", "acupuncture", "ad", 
+		"adapter", "addiction", "addition", "address", "adjustment", "administration", "adrenalin", "adult", "adulthood", "advance", 
+		"advancement", "advantage", "advertisement", "advertising", "advice", "affair", "affect", "aftermath", "afternoon", "aftershave", 
+		"aftershock", "afterthought", "age", "agency", "agenda", "agent", "aggression", "aglet", "agreement", "aid", 
+		"air", "airbag", "airbus", "airfare", "airforce", "airline", "airmail", "airplane", "airport", "airship", 
+		"alarm", "alb", "albatross", "alcohol", "alcove", "alder", "algebra", "alibi", "allergist", "alley", 
+		"alligator", "alloy", "almanac", "almond", "alpaca", "alpenglow", "alpenhorn", "alpha", "alphabet", "alternative", 
+		"altitude", "alto", "aluminium", "aluminum", "ambassador", "ambition", "ambulance", "amendment", "amount", "amusement", 
+		"anagram", "analgesia", "analog", "analogue", "analogy", "analysis", "analyst", "anatomy", "anesthesiology", "anethesiologist", 
+		"anger", "angiosperm", "angle", "angora", "angstrom", "anguish", "animal", "anime", "ankle", "anklet", 
+		"annual", "anorak", "answer", "ant", "anteater", "antechamber", "antelope", "anthony", "anthropology", "antler", 
+		"anxiety", "anybody", "anything", "anywhere", "apartment", "ape", "aperitif", "apology", "apparatus", "apparel", 
+		"appeal", "appearance", "appendix", "applause", "apple", "applewood", "appliance", "application", "appointment", "approval", 
+		"apron", "apse", "aquifer", "arch", "archaeology", "archeology", "archer", "architect", "architecture", "arch-rival", 
+		"area", "argument", "arithmetic", "arm", "armadillo", "armament", "armchair", "armoire", "armor", "arm-rest", 
+		"army", "arrival", "arrow", "art", "artichoke", "article", "artificer", "ascot", "ash", "ashram", 
+		"ashtray", "aside", "ask", "asparagus", "aspect", "asphalt", "assignment", "assist", "assistance", "assistant", 
+		"associate", "association", "assumption", "asterisk", "astrakhan", "astrolabe", "astrologer", "astrology", "astronomy", "atelier", 
+		"athlete", "athletics", "atmosphere", "atom", "atrium", "attachment", "attack", "attempt", "attendant", "attention", 
+		"attenuation", "attic", "attitude", "attorney", "attraction", "audience", "auditorium", "aunt", "author", "authorisation", 
+		"authority", "authorization", "automaton", "avalanche", "avenue", "average", "award", "awareness", "azimuth", "babe", 
+		"baboon", "babushka", "baby", "back", "backbone", "backdrop", "background", "backpack", "bacon", "bad", 
+		"badge", "badger", "bafflement", "bag", "bagel", "baggage", "bagpipe", "bail", "bait", "bake", 
+		"baker", "bakery", "bakeware", "balaclava", "balalaika", "balance", "balcony", "ball", "ballet", "balloon", 
+		"ballpark", "bamboo", "banana", "band", "bandana", "bandanna", "bandolier", "bangle", "banjo", "bank", 
+		"bankbook", "banker", "banquette", "baobab", "bar", "barbeque", "barber", "barbiturate", "barge", "baritone", 
+		"barium", "barn", "barometer", "barracks", "barstool", "base", "baseball", "basement", "basin", "basis", 
+		"basket", "basketball", "bass", "bassinet", "bassoon", "bat", "bath", "bather", "bathhouse", "bathrobe", 
+		"bathroom", "bathtub", "batter", "battery", "batting", "battle", "battleship", "bay", "bayou", "beach", 
+		"bead", "beak", "beam", "bean", "beanie", "beanstalk", "bear", "beard", "beast", "beat", 
+		"beautiful", "beauty", "beaver", "bed", "bedroom", "bee", "beech", "beef", "beer", "beet", 
+		"beetle", "beggar", "beginner", "beginning", "begonia", "behavior", "beheading", "behest", "being", "belfry", 
+		"belief", "believe", "bell", "belligerency", "bellows", "belly", "belt", "bench", "bend", "beneficiary", 
+		"benefit", "bengal", "beret", "berry", "bestseller", "best-seller", "bet", "beverage", "beyond", "bibliography", 
+		"bicycle", "bid", "bidet", "bifocals", "big", "big-rig", "bijou", "bike", "bikini", "bill", 
+		"billboard", "bin", "biology", "biplane", "birch", "bird", "birdbath", "birdcage", "birdhouse", "bird-watcher", 
+		"birth", "birthday", "bit", "bite", "bitter", "black", "blackberry", "blackboard", "blackfish", "bladder", 
+		"blade", "blame", "blank", "blanket", "blazer", "blight", "blind", "blinker", "blister", "blizzard", 
+		"block", "blocker", "blood", "bloodflow", "bloom", "bloomers", "blossom", "blouse", "blow", "blowgun", 
+		"blowhole", "blue", "blueberry", "boar", "board", "boat", "boat-building", "boatload", "boatyard", "bobcat", 
+		"body", "bog", "bolero", "bolt", "bomb", "bomber", "bondsman", "bone", "bongo", "bonnet", 
+		"bonsai", "bonus", "boogeyman", "book", "bookcase", "bookend", "booklet", "booster", "boot", "bootee", 
+		"bootie", "boots", "booty", "border", "bore", "bosom", "boss", "botany", "bother", "bottle", 
+		"bottling", "bottom", "bottom-line", "boudoir", "bough", "boundary", "bow", "bower", "bowl", "bowler", 
+		"bowling", "bowtie", "box", "boxer", "boxspring", "boy", "boyfriend", "bra", "brace", "bracelet", 
+		"bracket", "brain", "brake", "branch", "brand", "brandy", "brass", "brassiere", "bratwurst", "brave", 
+		"bread", "breadcrumb", "break", "breakfast", "breakpoint", "breast", "breastplate", "breath", "breeze", "bribery", 
+		"brick", "bricklaying", "bridge", "brief", "briefs", "brilliant", "british", "broad", "broccoli", "brochure", 
+		"broiler", "broker", "brome", "bronchitis", "bronco", "bronze", "brooch", "brood", "brook", "broom", 
+		"brother", "brother-in-law", "brow", "brown", "brush", "brushfire", "brushing", "bubble", "bucket", "buckle", 
+		"bud", "buddy", "budget", "buffer", "buffet", "bug", "buggy", "bugle", "building", "bulb", 
+		"bull", "bulldozer", "bullet", "bull-fighter", "bumper", "bun", "bunch", "bungalow", "bunghole", "bunkhouse", 
+		"burglar", "burlesque", "burn", "burn-out", "burst", "bus", "bush", "business", "bust", "bustle", 
+		"butane", "butcher", "butter", "button", "buy", "buyer", "buzzard", "cabana", "cabbage", "cabin", 
+		"cabinet", "cable", "caboose", "cacao", "cactus", "caddy", "cadet", "cafe", "caftan", "cake", 
+		"calcification", "calculation", "calculator", "calculus", "calendar", "calf", "calico", "call", "calm", "camel", 
+		"cameo", "camera", "camp", "campaign", "campanile", "can", "canal", "cancel", "cancer", "candelabra", 
+		"candidate", "candle", "candy", "cane", "cannon", "canoe", "canon", "canopy", "canteen", "canvas", 
+		"cap", "cape", "capital", "capitulation", "capon", "cappelletti", "cappuccino", "captain", "caption", "car", 
+		"caravan", "carbon", "card", "cardboard", "cardigan", "care", "career", "cargo", "carload", "carnation", 
+		"carol", "carotene", "carp", "carpenter", "carpet", "carport", "carriage", "carrier", "carrot", "carry", 
+		"cart", "cartilage", "cartload", "cartoon", "cartridge", "cascade", "case", "casement", "cash", "cashier", 
+		"casino", "casserole", "cassock", "cast", "castanet", "castanets", "castle", "cat", "catacomb", "catamaran", 
+		"catch", "category", "caterpillar", "cathedral", "catsup", "cattle", "cauliflower", "cause", "caution", "cave", 
+		"c-clamp", "cd", "ceiling", "celebration", "celeriac", "celery", "celeste", "cell", "cellar", "cello", 
+		"celsius", "cement", "cemetery", "cenotaph", "census", "cent", "center", "centimeter", "centurion", "century", 
+		"cephalopod", "ceramic", "cereal", "certification", "cesspool", "chafe", "chain", "chainstay", "chair", "chairlift", 
+		"chairman", "chairperson", "chaise", "chalet", "chalice", "chalk", "challenge", "champion", "championship", "chance", 
+		"chandelier", "change", "channel", "chaos", "chap", "chapel", "chapter", "character", "chard", "charge", 
+		"charity", "charlatan", "charles", "charm", "chart", "chastity", "chasuble", "chateau", "chauffeur", "chauvinist", 
+		"check", "checkroom", "cheek", "cheetah", "chef", "chemical", "chemistry", "cheque", "cherries", "cherry", 
+		"chess", "chest", "chick", "chicken", "chicory", "chief", "chiffonier", "child", "childhood", "children", 
+		"chill", "chime", "chimpanzee", "chin", "chino", "chip", "chipmunk", "chit-chat", "chivalry", "chive", 
+		"chocolate", "choice", "choker", "chop", "chopstick", "chord", "chowder", "chrome", "chromolithograph", "chronograph", 
+		"chronometer", "chub", "chug", "church", "churn", "cicada", "cigarette", "cinema", "circle", "circulation", 
+		"circumference", "cirrus", "citizenship", "city", "civilisation", "claim", "clam", "clank", "clapboard", "clarinet", 
+		"clasp", "class", "classic", "classroom", "clause", "clave", "clavicle", "clavier", "cleaner", "cleat", 
+		"cleavage", "clef", "cleric", "clerk", "click", "client", "cliff", "climate", "climb", "clip", 
+		"clipper", "cloak", "cloakroom", "clock", "clockwork", "clogs", "cloister", "close", "closet", "cloth", 
+		"clothes", "clothing", "cloud", "cloudburst", "cloudy", "clove", "clover", "club", "clue", "clutch", 
+		"coach", "coal", "coast", "coat", "cob", "cobweb", "cockpit", "cockroach", "cocktail", "cocoa", 
+		"cod", "code", "codon", "codpiece", "coevolution", "coffee", "coffin", "coil", "coin", "coinsurance", 
+		"coke", "cold", "coliseum", "collar", "collection", "college", "collision", "colloquia", "colon", "colonisation", 
+		"colony", "color", "colt", "column", "columnist", "comb", "combat", "combination", "combine", "comfort", 
+		"comfortable", "comic", "comma", "command", "comment", "commerce", "commercial", "commission", "committee", "common", 
+		"communicant", "communication", "community", "company", "comparison", "compassion", "competition", "competitor", "complaint", "complement", 
+		"complex", "component", "comportment", "composer", "composition", "compost", "comprehension", "compulsion", "computer", "comradeship", 
+		"concentrate", "concept", "concern", "concert", "conclusion", "concrete", "condition", "condominium", "condor", "conductor", 
+		"cone", "confectionery", "conference", "confidence", "confirmation", "conflict", "confusion", "conga", "congo", "congress", 
+		"congressman", "congressperson", "conifer", "connection", "consent", "consequence", "consideration", "consist", "console", "consonant", 
+		"conspirator", "constant", "constellation", "construction", "consul", "consulate", "contact", "contact lens", "contagion", "content", 
+		"contest", "context", "continent", "contract", "contrail", "contrary", "contribution", "control", "convection", "conversation", 
+		"convert", "convertible", "cook", "cookie", "cooking", "coonskin", "cope", "cop-out", "copper", "co-producer", 
+		"copy", "copyright", "copywriter", "cord", "corduroy", "cork", "cormorant", "corn", "corner", "cornerstone", 
+		"cornet", "corral", "correspondent", "corridor", "corruption", "corsage", "cost", "costume", "cot", "cottage", 
+		"cotton", "couch", "cougar", "cough", "council", "councilman", "councilor", "councilperson", "count", "counter", 
+		"counter-force", "countess", "country", "county", "couple", "courage", "course", "court", "cousin", "covariate", 
+		"cover", "coverall", "cow", "cowbell", "cowboy", "crab", "crack", "cracker", "crackers", "cradle", 
+		"craft", "craftsman", "crash", "crate", "cravat", "craw", "crawdad", "crayfish", "crayon", "crazy", 
+		"cream", "creative", "creator", "creature", "creche", "credenza", "credit", "creditor", "creek", "creme brulee", 
+		"crest", "crew", "crib", "cribbage", "cricket", "cricketer", "crime", "criminal", "crinoline", "criteria", 
+		"criterion", "criticism", "crocodile", "crocus", "croissant", "crook", "crop", "cross", "cross-contamination", "cross-stitch", 
+		"crotch", "croup", "crow", "crowd", "crown", "crude", "crush", "cry", "crystallography", "cub", 
+		"cuckoo", "cucumber", "cuff-links", "cultivar", "cultivator", "culture", "culvert", "cummerbund", "cup", "cupboard", 
+		"cupcake", "cupola", "curio", "curl", "curler", "currency", "current", "cursor", "curtain", "curve", 
+		"cushion", "custard", "customer", "cut", "cuticle", "cutlet", "cutover", "cutting", "cyclamen", "cycle", 
+		"cyclone", "cylinder", "cymbal", "cymbals", "cynic", "cyst", "cytoplasm", "dad", "daffodil", "dagger", 
+		"dahlia", "daisy", "damage", "dame", "dance", "dancer", "dancing", "danger", "daniel", "dare", 
+		"dark", "dart", "dash", "dashboard", "data", "database", "date", "daughter", "david", "day", 
+		"daybed", "dead", "deadline", "deal", "dealer", "dear", "death", "deathwatch", "debate", "debt", 
+		"debtor", "decade", "decimal", "decision", "deck", "declination", "decongestant", "decrease", "decryption", "dedication", 
+		"deep", "deer", "defense", "deficit", "definition", "deformation", "degree", "delay", "delete", "delight", 
+		"delivery", "demand", "demur", "den", "denim", "dentist", "deodorant", "department", "departure", "dependent", 
+		"deployment", "deposit", "depression", "depressive", "depth", "deputy", "derby", "derrick", "description", "desert", 
+		"design", "designer", "desire", "desk", "dessert", "destiny", "destroyer", "destruction", "detail", "detainment", 
+		"detective", "detention", "determination", "development", "deviance", "device", "devil", "dew", "dhow", "diadem", 
+		"diamond", "diaphragm", "diarist", "dibble", "dickey", "dictaphone", "diction", "dictionary", "diet", "difference", 
+		"differential", "difficulty", "dig", "digestion", "digger", "digital", "dignity", "dilapidation", "dill", "dime", 
+		"dimension", "dimple", "diner", "dinghy", "dinner", "dinosaur", "diploma", "dipstick", "direction", "director", 
+		"dirndl", "dirt", "disadvantage", "disarmament", "disaster", "discipline", "disco", "disconnection", "discount", "discovery", 
+		"discrepancy", "discussion", "disease", "disembodiment", "disengagement", "disguise", "disgust", "dish", "dishes", "dishwasher", 
+		"disk", "display", "disposer", "distance", "distribution", "distributor", "district", "divan", "diver", "divide", 
+		"divider", "diving", "division", "dock", "doctor", "document", "doe", "dog", "dogsled", "dogwood", 
+		"doll", "dollar", "dolman", "dolphin", "domain", "donkey", "door", "doorknob", "doorpost", "dory", 
+		"dot", "double", "doubling", "doubt", "doubter", "downforce", "downgrade", "downtown", "draft", "drag", 
+		"dragon", "dragonfly", "dragster", "drain", "drake", "drama", "dramaturge", "draw", "drawbridge", "drawer", 
+		"drawing", "dream", "dredger", "dress", "dresser", "dressing", "drill", "drink", "drive", "driver", 
+		"driveway", "driving", "drizzle", "dromedary", "drop", "drug", "drum", "drummer", "drunk", "dry", 
+		"dryer", "duck", "duckling", "dud", "due", "duffel", "dugout", "dulcimer", "dumbwaiter", "dump", 
+		"dump truck", "dune buggy", "dungarees", "dungeon", "duplexer", "dust", "dust storm", "duster", "duty", "dwarf", 
+		"dwelling", "dynamo", "eagle", "ear", "eardrum", "earmuffs", "earplug", "earrings", "earth", "earthquake", 
+		"earthworm", "ease", "easel", "east", "eat", "eave", "eavesdropper", "e-book", "ecclesia", "eclipse", 
+		"ecliptic", "economics", "economy", "ecumenist", "eddy", "edge", "edger", "editor", "editorial", "education", 
+		"edward", "eel", "effacement", "effect", "effective", "efficacy", "efficiency", "effort", "egg", "egghead", 
+		"eggnog", "eggplant", "eight", "ejector", "elbow", "election", "electricity", "electrocardiogram", "element", "elephant", 
+		"elevator", "elixir", "elk", "ellipse", "elm", "elongation", "embossing", "emergence", "emergency", "emergent", 
+		"emery", "emotion", "emphasis", "employ", "employee", "employer", "employment", "empowerment", "emu", "encirclement", 
+		"encyclopedia", "end", "endothelium", "enemy", "energy", "engine", "engineer", "engineering", "enigma", "enjoyment", 
+		"enquiry", "entertainment", "enthusiasm", "entrance", "entry", "environment", "envy", "epauliere", "epee", "ephemera", 
+		"ephemeris", "epoch", "eponym", "epoxy", "equal", "equinox", "equipment", "equivalent", "era", "e-reader", 
+		"error", "escape", "ese", "espadrille", "espalier", "essay", "establishment", "estate", "estimate", "estrogen", 
+		"estuary", "ethernet", "ethics", "euphonium", "eurocentrism", "europe", "evaluator", "evening", "evening-wear", "event", 
+		"eviction", "evidence", "evocation", "evolution", "exam", "examination", "examiner", "example", "exchange", "excitement", 
+		"exclamation", "excuse", "executor", "exercise", "exhaust", "ex-husband", "exile", "existence", "exit", "expansion", 
+		"expansionism", "experience", "expert", "explanation", "exposition", "expression", "extension", "extent", "external", "extreme", 
+		"ex-wife", "eye", "eyeball", "eyebrow", "eyebrows", "eyeglasses", "eyelash", "eyelashes", "eyelid", "eyelids", 
+		"eyeliner", "eyestrain", "face", "facelift", "facet", "facilities", "facsimile", "fact", "factor", "factory", 
+		"faculty", "fahrenheit", "fail", "failure", "fairies", "fairy", "faith", "fall", "falling-out", "fame", 
+		"familiar", "family", "fan", "fang", "fanlight", "fanny", "fanny-pack", "farm", "farmer", "fascia", 
+		"fat", "father", "father-in-law", "fatigues", "faucet", "fault", "fawn", "fax", "fear", "feast", 
+		"feather", "feature", "fedelini", "fedora", "fee", "feed", "feedback", "feel", "feeling", "feet", 
+		"felony", "female", "fen", "fence", "fencing", "fender", "ferry", "ferryboat", "fertilizer", "few", 
+		"fiber", "fiberglass", "fibre", "fiction", "fiddle", "field", "fifth", "fight", "fighter", "figure", 
+		"figurine", "file", "fill", "filly", "film", "filth", "final", "finance", "find", "finding", 
+		"fine", "finger", "fingernail", "finish", "finisher", "fir", "fire", "fireman", "fireplace", "firewall", 
+		"fish", "fishbone", "fisherman", "fishery", "fishing", "fishmonger", "fishnet", "fisting", "fix", "fixture", 
+		"flag", "flame", "flanker", "flare", "flash", "flat", "flatboat", "flavor", "flax", "fleck", 
+		"fleece", "flesh", "flight", "flintlock", "flip-flops", "flock", "flood", "floor", "floozie", "flour", 
+		"flow", "flower", "flu", "flugelhorn", "fluke", "flute", "fly", "flytrap", "foam", "fob", 
+		"focus", "fog", "fold", "folder", "following", "fondue", "font", "food", "foot", "football", 
+		"footnote", "footrest", "foot-rest", "footstool", "foray", "force", "forearm", "forebear", "forecast", "forehead", 
+		"forest", "forestry", "forever", "forgery", "fork", "form", "formal", "format", "former", "fort", 
+		"fortnight", "fortress", "fortune", "forum", "foundation", "fountain", "fowl", "fox", "foxglove", "fragrance", 
+		"frame", "fratricide", "fraudster", "frazzle", "freckle", "freedom", "freeplay", "freeze", "freezer", "freight", 
+		"freighter", "freon", "fresco", "friction", "fridge", "friend", "friendship", "frigate", "fringe", "frock", 
+		"frog", "front", "frost", "frown", "fruit", "frustration", "fuel", "fulfillment", "full", "fun", 
+		"function", "fundraising", "funeral", "funny", "fur", "furnace", "furniture", "fusarium", "futon", "future", 
+		"gaffer", "gain", "gaiters", "gale", "gall-bladder", "gallery", "galley", "gallon", "galn", "galoshes", 
+		"game", "gamebird", "gamma-ray", "gander", "gap", "garage", "garb", "garbage", "garden", "garlic", 
+		"garment", "garter", "gas", "gasoline", "gastropod", "gate", "gateway", "gather", "gauge", "gauntlet", 
+		"gazebo", "gazelle", "gear", "gearshift", "geese", "gelding", "gem", "gemsbok", "gender", "gene", 
+		"general", "genetics", "geography", "geology", "geometry", "george", "geranium", "gerbil", "geyser", "gherkin", 
+		"ghost", "giant", "gift", "gigantism", "ginseng", "giraffe", "girdle", "girl", "girlfriend", "git", 
+		"give", "glad", "gladiolus", "gland", "glass", "glasses", "glen", "glider", "gliding", "glockenspiel", 
+		"glove", "gloves", "glue", "glut", "go", "goal", "goat", "gobbler", "god", "godmother", 
+		"goggles", "go-kart", "gold", "goldfish", "golf", "gondola", "gong", "good", "goodbye", "good-bye", 
+		"goodie", "goose", "gopher", "gore-tex", "gorilla", "gosling", "gossip", "governance", "government", "governor", 
+		"gown", "grab", "grab-bag", "grade", "grain", "gram", "grammar", "grand", "granddaughter", "grandfather", 
+		"grandmom", "grandmother", "grandson", "granny", "grape", "grapefruit", "graph", "graphic", "grass", "grasshopper", 
+		"grassland", "gratitude", "gray", "grease", "great", "great-grandfather", "great-grandmother", "greek", "green", "greenhouse", 
+		"grenade", "grey", "grief", "grill", "grip", "grit", "grocery", "ground", "group", "grouper", 
+		"grouse", "growth", "guarantee", "guard", "guess", "guest", "guestbook", "guidance", "guide", "guilt", 
+		"guilty", "guitar", "guitarist", "gum", "gumshoes", "gun", "gutter", "guy", "gym", "gymnast", 
+		"gymnastics", "gynaecology", "gyro", "habit", "hacienda", "hacksaw", "hackwork", "hail", "hair", "haircut", 
+		"half", "half-brother", "half-sister", "halibut", "hall", "hallway", "hamaki", "hamburger", "hammer", "hammock", 
+		"hamster", "hand", "handball", "hand-holding", "handicap", "handle", "handlebar", "handmaiden", "handsaw", "hang", 
+		"happiness", "harbor", "harbour", "hardboard", "hardcover", "hardening", "hardhat", "hard-hat", "hardware", "harm", 
+		"harmonica", "harmony", "harp", "harpooner", "harpsichord", "hassock", "hat", "hatbox", "hatchet", "hate", 
+		"hatred", "haunt", "haversack", "hawk", "hay", "head", "headlight", "headline", "headrest", "health", 
+		"hearing", "heart", "heartache", "hearth", "hearthside", "heart-throb", "heartwood", "heat", "heater", "heaven", 
+		"heavy", "hedge", "hedgehog", "heel", "height", "heirloom", "helen", "helicopter", "helium", "hell", 
+		"hellcat", "hello", "helmet", "helo", "help", "hemp", "hen", "herb", "heron", "herring", 
+		"hexagon", "heyday", "hide", "high", "highlight", "high-rise", "highway", "hill", "hip", "hippodrome", 
+		"hippopotamus", "hire", "historian", "history", "hit", "hive", "hobbies", "hobbit", "hobby", "hockey", 
+		"hoe", "hog", "hold", "hole", "holiday", "home", "homework", "homogenate", "homonym", "honesty", 
+		"honey", "honeybee", "honoree", "hood", "hoof", "hook", "hope", "hops", "horn", "hornet", 
+		"horror", "horse", "hose", "hosiery", "hospice", "hospital", "hospitality", "host", "hostel", "hostess", 
+		"hot", "hot-dog", "hotel", "hour", "hourglass", "house", "houseboat", "housework", "housing", "hovel", 
+		"hovercraft", "howitzer", "hub", "hubcap", "hugger", "human", "humidity", "humor", "humour", "hunger", 
+		"hunt", "hurdler", "hurricane", "hurry", "hurt", "husband", "hut", "hutch", "hyacinth", "hybridisation", 
+		"hydrant", "hydraulics", "hydrofoil", "hydrogen", "hyena", "hygienic", "hyphenation", "hypochondria", "hypothermia", "ice", 
+		"icebreaker", "icecream", "ice-cream", "icicle", "icon", "idea", "ideal", "if", "igloo", "ikebana", 
+		"illegal", "image", "imagination", "impact", "implement", "importance", "impress", "impression", "imprisonment", "improvement", 
+		"impudence", "impulse", "inbox", "incandescence", "inch", "incident", "income", "increase", "independence", "independent", 
+		"index", "indication", "indigence", "individual", "industry", "inevitable", "infancy", "inflammation", "inflation", "influence", 
+		"information", "infusion", "inglenook", "ingrate", "initial", "initiative", "in-joke", "injury", "injustice", "ink", 
+		"in-laws", "inlay", "inn", "innervation", "innocence", "innocent", "input", "inquiry", "inscription", "insect", 
+		"inside", "insolence", "inspection", "inspector", "instance", "instruction", "instrument", "instrumentalist", "instrumentation", "insulation", 
+		"insurance", "insurgence", "intelligence", "intention", "interaction", "interactive", "interest", "interferometer", "interior", "interloper", 
+		"internal", "international", "internet", "interpreter", "intervenor", "interview", "interviewer", "intestine", "intestines", "introduction", 
+		"invention", "inventor", "inventory", "investment", "invite", "invoice", "iridescence", "iris", "iron", "ironclad", 
+		"irony", "island", "issue", "it", "item", "jackal", "jacket", "jaguar", "jail", "jailhouse", 
+		"jam", "james", "jar", "jasmine", "jaw", "jealousy", "jeans", "jeep", "jeff", "jelly", 
+		"jellyfish", "jet", "jewel", "jewelry", "jiffy", "job", "jockey", "jodhpurs", "joey", "jogging", 
+		"join", "joint", "joke", "jot", "journey", "joy", "judge", "judgment", "judo", "juggernaut", 
+		"juice", "jumbo", "jump", "jumper", "jumpsuit", "junior", "junk", "junker", "junket", "jury", 
+		"justice", "jute", "kale", "kamikaze", "kangaroo", "karate", "karen", "kayak", "kazoo", "keep", 
+		"kendo", "ketch", "ketchup", "kettle", "kettledrum", "key", "keyboard", "keyboarding", "keystone", "kick", 
+		"kick-off", "kid", "kidney", "kidneys", "kielbasa", "kill", "kilogram", "kilometer", "kilt", "kimono", 
+		"kind", "kindness", "king", "kingfish", "kiosk", "kiss", "kitchen", "kite", "kitten", "kitty", 
+		"kleenex", "klomps", "knee", "kneejerk", "knickers", "knife", "knife-edge", "knight", "knitting", "knot", 
+		"knowledge", "knuckle", "koala", "kohlrabi", "lab", "laborer", "labour", "lace", "lack", "lacquerware", 
+		"ladder", "lady", "ladybug", "lake", "lamb", "lamp", "lan", "lanai", "land", "landform", 
+		"landmine", "landscape", "language", "lantern", "lap", "laparoscope", "lapdog", "laptop", "larch", "larder", 
+		"lark", "laryngitis", "lasagna", "latency", "latex", "lathe", "latte", "laugh", "laughter", "laundry", 
+		"lava", "law", "lawn", "lawsuit", "lawyer", "lay", "layer", "lead", "leader", "leadership", 
+		"leading", "leaf", "league", "leaker", "learning", "leash", "leather", "leave", "leaver", "lecture", 
+		"leek", "leg", "legal", "legging", "legume", "lei", "leisure", "lemon", "lemonade", "lemur", 
+		"length", "lentil", "leprosy", "lesson", "let", "letter", "lettuce", "level", "lever", "leverage", 
+		"library", "license", "lie", "lier", "life", "lift", "light", "lighting", "lightning", "lilac", 
+		"lily", "limit", "limo", "line", "linen", "liner", "linguistics", "link", "linseed", "lion", 
+		"lip", "lipstick", "liquid", "liquor", "lisa", "list", "listen", "literature", "litigation", "litter", 
+		"liver", "livestock", "living", "lizard", "llama", "load", "loaf", "loafer", "loan", "lobotomy", 
+		"lobster", "local", "location", "lock", "locker", "locket", "locomotive", "locust", "loft", "log", 
+		"loggia", "logic", "loincloth", "loneliness", "long", "look", "loss", "lot", "lotion", "lounge", 
+		"lout", "love", "low", "loyalty", "luck", "luggage", "lumber", "lumberman", "lunch", "luncheonette", 
+		"lunchroom", "lung", "lunge", "lute", "luttuce", "lycra", "lye", "lymphocyte", "lynx", "lyocell", 
+		"lyre", "lyric", "macadamia", "macaroni", "machine", "machinery", "macrame", "macrofauna", "maelstrom", "maestro", 
+		"magazine", "magic", "maid", "maiden", "mail", "mailbox", "mailman", "main", "maintenance", "major", 
+		"major-league", "make", "makeup", "male", "mall", "mallet", "mambo", "mammoth", "man", "management", 
+		"manager", "mandarin", "mandolin", "mangrove", "manhunt", "maniac", "manicure", "mankind", "manner", "manor", 
+		"mansard", "manservant", "mansion", "mantel", "mantle", "mantua", "manufacturer", "manx", "many", "map", 
+		"maple", "maraca", "maracas", "marble", "march", "mare", "margin", "mariachi", "marimba", "mark", 
+		"market", "marketing", "marksman", "marriage", "marsh", "marshland", "marxism", "mascara", "mask", "mass", 
+		"massage", "master", "mastication", "mastoid", "mat", "match", "mate", "material", "math", "mathematics", 
+		"matter", "mattock", "mattress", "maximum", "maybe", "mayonnaise", "mayor", "meal", "meaning", "measles", 
+		"measure", "measurement", "meat", "mechanic", "media", "medicine", "medium", "meet", "meeting", "megaliac", 
+		"melody", "member", "membership", "memory", "men", "menorah", "mention", "menu", "mercury", "mess", 
+		"message", "metal", "metallurgist", "meteor", "meteorology", "meter", "methane", "method", "methodology", "metro", 
+		"metronome", "mezzanine", "mice", "microlending", "microwave", "mid-course", "middle", "middleman", "midi", "midline", 
+		"midnight", "midwife", "might", "migrant", "mile", "milk", "milkshake", "millennium", "millimeter", "millisecond", 
+		"mime", "mimosa", "mind", "mine", "mini", "minibus", "minimum", "minion", "mini-skirt", "minister", 
+		"minor", "minor-league", "mint", "minute", "mirror", "miscarriage", "miscommunication", "misfit", "misogyny", "misplacement", 
+		"misreading", "miss", "missile", "mission", "mist", "mistake", "mister", "miter", "mitten", "mix", 
+		"mixer", "mixture", "moat", "mobile", "moccasins", "mocha", "mode", "model", "modem", "mole", 
+		"mom", "moment", "monastery", "monasticism", "money", "monger", "monitor", "monkey", "monocle", "monotheism", 
+		"monsoon", "monster", "month", "mood", "moon", "moonscape", "moonshine", "mop", "morning", "morsel", 
+		"mortgage", "mortise", "mosque", "mosquito", "most", "motel", "moth", "mother", "mother-in-law", "motion", 
+		"motor", "motorboat", "motorcar", "motorcycle", "mound", "mountain", "mouse", "mouser", "mousse", "moustache", 
+		"mouth", "mouton", "move", "mover", "movie", "mower", "mud", "mug", "mukluk", "mule", 
+		"multimedia", "muscle", "musculature", "museum", "music", "music-box", "music-making", "mustache", "mustard", "mutt", 
+		"mycoplasma", "n", "nail", "name", "naming", "nanoparticle", "napkin", "nasty", "nation", "national", 
+		"native", "natural", "naturalisation", "nature", "neat", "necessary", "neck", "necklace", "necktie", "need", 
+		"needle", "negative", "negligee", "negotiation", "neologism", "neon", "nephew", "nerve", "nest", "net", 
+		"netball", "netbook", "netsuke", "network", "neurobiologist", "neuropathologist", "neuropsychiatry", "news", "newspaper", "newsprint", 
+		"newsstand", "nexus", "nicety", "niche", "nickel", "niece", "night", "nightclub", "nightgown", "nightingale", 
+		"nightlight", "nitrogen", "nobody", "node", "noise", "nonbeliever", "nonconformist", "nondisclosure", "nonsense", "noodle", 
+		"normal", "norse", "north", "nose", "note", "notebook", "nothing", "notice", "notify", "notoriety", 
+		"nougat", "novel", "nudge", "number", "numeracy", "numeric", "numismatist", "nurse", "nursery", "nurture", 
+		"nut", "nutrition", "nylon", "oak", "oar", "oasis", "oatmeal", "obedience", "obesity", "obi", 
+		"object", "objective", "obligation", "oboe", "observation", "observatory", "occasion", "occupation", "ocean", "ocelot", 
+		"octagon", "octave", "octavo", "octet", "octopus", "odometer", "oeuvre", "offence", "offer", "office", 
+		"officer", "official", "off-ramp", "oil", "okra", "oldie", "olive", "omega", "omelet", "oncology", 
+		"one", "onion", "open", "opening", "opera", "operation", "ophthalmologist", "opinion", "opium", "opossum", 
+		"opportunist", "opportunity", "opposite", "option", "orange", "orangutan", "orator", "orchard", "orchestra", "orchid", 
+		"order", "ordinary", "ordination", "organ", "organisation", "organization", "original", "ornament", "osmosis", "osprey", 
+		"ostrich", "other", "others", "ott", "otter", "ounce", "outback", "outcome", "outfit", "outhouse", 
+		"outlay", "output", "outrigger", "outset", "outside", "oval", "ovary", "oven", "overcharge", "overclocking", 
+		"overcoat", "overexertion", "overflight", "overnighter", "overshoot", "owl", "owner", "ox", "oxen", "oxford", 
+		"oxygen", "oyster", "pace", "pacemaker", "pack", "package", "packet", "pad", "paddle", "paddock", 
+		"page", "pagoda", "pail", "pain", "paint", "painter", "painting", "paintwork", "pair", "pajama", 
+		"pajamas", "palm", "pamphlet", "pan", "pancake", "pancreas", "panda", "panic", "pannier", "panpipe", 
+		"pansy", "panther", "panties", "pantologist", "pantology", "pantry", "pants", "pantsuit", "panty", "pantyhose", 
+		"paper", "paperback", "parable", "parachute", "parade", "parallelogram", "paramedic", "parcel", "parchment", "pard", 
+		"parent", "parentheses", "park", "parka", "parking", "parrot", "parsnip", "part", "participant", "particle", 
+		"particular", "partner", "partridge", "party", "pass", "passage", "passbook", "passenger", "passion", "passive", 
+		"past", "pasta", "paste", "pastor", "pastoralist", "pastry", "patch", "path", "patience", "patient", 
+		"patina", "patio", "patriarch", "patricia", "patrimony", "patriot", "patrol", "pattern", "pause", "pavement", 
+		"pavilion", "paw", "pawnshop", "pay", "payee", "payment", "pea", "peace", "peach", "peacoat", 
+		"peacock", "peak", "peanut", "pear", "pearl", "pedal", "peen", "peer", "peer-to-peer", "pegboard", 
+		"pelican", "pelt", "pen", "penalty", "pencil", "pendant", "pendulum", "penicillin", "pension", "pentagon", 
+		"peony", "people", "pepper", "percentage", "perception", "perch", "performance", "perfume", "period", "periodical", 
+		"peripheral", "permafrost", "permission", "permit", "perp", "person", "personal", "personality", "perspective", "pest", 
+		"pet", "petal", "petticoat", "pew", "pha", "pharmacist", "pharmacopoeia", "phase", "pheasant", "philosopher", 
+		"philosophy", "phone", "photo", "photographer", "phrase", "physical", "physics", "pianist", "piano", "piccolo", 
+		"pick", "pickax", "picket", "pickle", "picture", "pie", "piece", "pier", "piety", "pig", 
+		"pigeon", "pike", "pile", "pilgrimage", "pillbox", "pillow", "pilot", "pimp", "pimple", "pin", 
+		"pinafore", "pince-nez", "pine", "pineapple", "pinecone", "ping", "pink", "pinkie", "pinstripe", "pint", 
+		"pinto", "pinworm", "pioneer", "pipe", "piracy", "piss", "pitch", "pitching", "pith", "pizza", 
+		"place", "plain", "plan", "plane", "planet", "plant", "plantation", "planter", "plaster", "plasterboard", 
+		"plastic", "plate", "platform", "platinum", "platypus", "play", "player", "playground", "playroom", "pleasure", 
+		"pleated", "plenty", "plier", "plot", "plough", "plover", "plow", "plowman", "plume", "plunger", 
+		"plywood", "pneumonia", "pocket", "pocketbook", "pocket-watch", "poem", "poet", "poetry", "poignance", "point", 
+		"poison", "poisoning", "pole", "polenta", "police", "policeman", "policy", "polish", "politics", "pollution", 
+		"polo", "polyester", "pompom", "poncho", "pond", "pony", "poof", "pool", "pop", "popcorn", 
+		"poppy", "popsicle", "population", "populist", "porch", "porcupine", "port", "porter", "portfolio", "porthole", 
+		"position", "positive", "possession", "possibility", "possible", "post", "postage", "postbox", "poster", "pot", 
+		"potato", "potential", "potty", "pouch", "poultry", "pound", "pounding", "poverty", "powder", "power", 
+		"practice", "precedent", "precipitation", "preface", "preference", "prelude", "premeditation", "premier", "preoccupation", "preparation", 
+		"presence", "present", "presentation", "president", "press", "pressroom", "pressure", "pressurisation", "price", "pride", 
+		"priest", "priesthood", "primary", "primate", "prince", "princess", "principal", "principle", "print", "printer", 
+		"prior", "priority", "prison", "private", "prize", "prizefight", "probation", "problem", "procedure", "process", 
+		"processing", "produce", "producer", "product", "production", "profession", "professional", "professor", "profile", "profit", 
+		"program", "progress", "project", "promise", "promotion", "prompt", "pronunciation", "proof", "proof-reader", "propane", 
+		"property", "proposal", "prose", "prosecution", "protection", "protest", "protocol", "prow", "pruner", "pseudoscience", 
+		"psychiatrist", "psychoanalyst", "psychologist", "psychology", "ptarmigan", "public", "publicity", "publisher", "pudding", "puddle", 
+		"puffin", "pull", "pulley", "puma", "pump", "pumpkin", "pumpkinseed", "punch", "punctuation", "punishment", 
+		"pupa", "pupil", "puppy", "purchase", "puritan", "purple", "purpose", "purse", "push", "pusher", 
+		"put", "pvc", "pyjama", "pyramid", "quadrant", "quail", "quality", "quantity", "quart", "quarter", 
+		"quartz", "queen", "question", "quicksand", "quiet", "quill", "quilt", "quince", "quit", "quiver", 
+		"quotation", "quote", "rabbi", "rabbit", "raccoon", "race", "racer", "racing", "racism", "racist", 
+		"rack", "radar", "radiator", "radio", "radiosonde", "radish", "raffle", "raft", "rag", "rage", 
+		"rail", "railway", "raiment", "rain", "rainbow", "raincoat", "rainmaker", "rainstorm", "raise", "rake", 
+		"ram", "rambler", "ramie", "ranch", "random", "randomisation", "range", "rank", "raspberry", "rat", 
+		"rate", "ratio", "raven", "ravioli", "raw", "rawhide", "ray", "rayon", "reach", "reactant", 
+		"reaction", "read", "reading", "reality", "reamer", "rear", "reason", "receipt", "reception", "recess", 
+		"recipe", "recliner", "recognition", "recommendation", "record", "recorder", "recording", "recover", "recreation", "recruit", 
+		"rectangle", "red", "redesign", "rediscovery", "reduction", "reef", "refectory", "reference", "reflection", "refrigerator", 
+		"refund", "refuse", "region", "register", "regret", "regular", "regulation", "reindeer", "reinscription", "reject", 
+		"relation", "relationship", "relative", "relaxation", "release", "reliability", "relief", "religion", "relish", "reminder", 
+		"remote", "remove", "rent", "repair", "reparation", "repeat", "replace", "replacement", "replication", "reply", 
+		"report", "representative", "reprocessing", "republic", "reputation", "request", "requirement", "resale", "research", "reserve", 
+		"resident", "resist", "resolution", "resolve", "resort", "resource", "respect", "respite", "respond", "response", 
+		"responsibility", "rest", "restaurant", "result", "retailer", "rethinking", "retina", "retouch", "return", "reveal", 
+		"revenant", "revenge", "revenue", "review", "revolution", "revolve", "revolver", "reward", "rheumatism", "rhinoceros", 
+		"rhyme", "rhythm", "rice", "rich", "riddle", "ride", "rider", "ridge", "rifle", "right", 
+		"rim", "ring", "ringworm", "rip", "ripple", "rise", "riser", "risk", "river", "riverbed", 
+		"rivulet", "road", "roadway", "roast", "robe", "robin", "rock", "rocker", "rocket", "rocket-ship", 
+		"rod", "role", "roll", "roller", "roof", "room", "rooster", "root", "rope", "rose", 
+		"rostrum", "rotate", "rough", "round", "roundabout", "route", "router", "routine", "row", "rowboat", 
+		"royal", "rub", "rubber", "rubbish", "rubric", "ruckus", "ruffle", "rugby", "ruin", "rule", 
+		"rum", "run", "runaway", "runner", "rush", "rutabaga", "ruth", "ry", "sabre", "sack", 
+		"sad", "saddle", "safe", "safety", "sage", "sail", "sailboat", "sailor", "salad", "salary", 
+		"sale", "salesman", "salmon", "salon", "saloon", "salt", "samovar", "sampan", "sample", "samurai", 
+		"sand", "sandals", "sandbar", "sandwich", "sardine", "sari", "sarong", "sash", "satellite", "satin", 
+		"satire", "satisfaction", "sauce", "sausage", "save", "saving", "savings", "savior", "saviour", "saw", 
+		"saxophone", "scale", "scallion", "scanner", "scarecrow", "scarf", "scarification", "scene", "scenery", "scent", 
+		"schedule", "scheme", "schizophrenic", "schnitzel", "school", "schoolhouse", "schooner", "science", "scimitar", "scissors", 
+		"scooter", "score", "scorn", "scow", "scraper", "scratch", "screamer", "screen", "screenwriting", "screw", 
+		"screwdriver", "screw-up", "scrim", "scrip", "script", "sculpting", "sculpture", "sea", "seafood", "seagull", 
+		"seal", "seaplane", "search", "seashore", "seaside", "season", "seat", "second", "secret", "secretariat", 
+		"secretary", "section", "sectional", "sector", "secure", "security", "seed", "seeder", "segment", "select", 
+		"selection", "self", "sell", "semicircle", "semicolon", "senator", "senior", "sense", "sensitive", "sentence", 
+		"sepal", "septicaemia", "series", "servant", "serve", "server", "service", "session", "set", "setting", 
+		"settler", "sewer", "sex", "shack", "shade", "shadow", "shadowbox", "shake", "shakedown", "shaker", 
+		"shallot", "shame", "shampoo", "shanty", "shape", "share", "shark", "sharon", "shawl", "she", 
+		"shearling", "shears", "sheath", "shed", "sheep", "sheet", "shelf", "shell", "shelter", "sherry", 
+		"shield", "shift", "shin", "shine", "shingle", "ship", "shirt", "shirtdress", "shoat", "shock", 
+		"shoe", "shoehorn", "shoe-horn", "shoelace", "shoemaker", "shoes", "shoestring", "shofar", "shoot", "shootdown", 
+		"shop", "shopper", "shopping", "shore", "shortage", "shorts", "shortwave", "shot", "shoulder", "shovel", 
+		"show", "shower", "show-stopper", "shred", "shrimp", "shrine", "sibling", "sick", "side", "sideboard", 
+		"sideburns", "sidecar", "sidestream", "sidewalk", "siding", "sign", "signal", "signature", "signet", "significance", 
+		"signup", "silence", "silica", "silk", "silkworm", "sill", "silly", "silo", "silver", "simple", 
+		"sing", "singer", "single", "sink", "sir", "sister", "sister-in-law", "sitar", "site", "situation", 
+		"size", "skate", "skiing", "skill", "skin", "skirt", "skull", "skullcap", "skullduggery", "skunk", 
+		"sky", "skylight", "skyscraper", "skywalk", "slapstick", "slash", "slave", "sled", "sledge", "sleep", 
+		"sleet", "sleuth", "slice", "slide", "slider", "slime", "slip", "slipper", "slippers", "slope", 
+		"sloth", "smash", "smell", "smelting", "smile", "smock", "smog", "smoke", "smoking", "smuggling", 
+		"snail", "snake", "snakebite", "sneakers", "sneeze", "snob", "snorer", "snow", "snowboarding", "snowflake", 
+		"snowman", "snowmobiling", "snowplow", "snowstorm", "snowsuit", "snuggle", "soap", "soccer", "society", "sociology", 
+		"sock", "socks", "soda", "sofa", "soft", "softball", "softdrink", "softening", "software", "soil", 
+		"soldier", "solid", "solitaire", "solution", "sombrero", "somersault", "somewhere", "son", "song", "songbird", 
+		"sonnet", "soot", "soprano", "sorbet", "sorrow", "sort", "soulmate", "sound", "soup", "source", 
+		"sourwood", "sousaphone", "south", "south america", "south korea", "sow", "soy", "soybean", "space", "spacing", 
+		"spade", "spaghetti", "spandex", "spank", "spare", "spark", "sparrow", "spasm", "speaker", "speakerphone", 
+		"spear", "special", "specialist", "specific", "spectacle", "spectacles", "spectrograph", "speech", "speed", "speedboat", 
+		"spell", "spelling", "spend", "sphere", "sphynx", "spider", "spike", "spinach", "spine", "spiral", 
+		"spirit", "spiritual", "spite", "spleen", "split", "sponge", "spoon", "sport", "spot", "spotlight", 
+		"spray", "spread", "spring", "sprinter", "sprout", "spruce", "spume", "spur", "spy", "square", 
+		"squash", "squatter", "squeegee", "squid", "squirrel", "stable", "stack", "stacking", "stadium", "staff", 
+		"stag", "stage", "stain", "stair", "staircase", "stallion", "stamen", "stamina", "stamp", "stance", 
+		"stand", "standard", "standoff", "star", "start", "starter", "state", "statement", "station", "station-wagon", 
+		"statistic", "status", "stay", "steak", "steal", "steam", "steamroller", "steel", "steeple", "stem", 
+		"stencil", "step", "step-aunt", "step-brother", "stepdaughter", "step-daughter", "step-father", "step-grandfather", "step-grandmother", "stepmother", 
+		"step-mother", "stepping-stone", "steps", "step-sister", "stepson", "step-son", "step-uncle", "stew", "stick", "stiletto", 
+		"still", "stinger", "stitch", "stock", "stocking", "stockings", "stock-in-trade", "stole", "stomach", "stone", 
+		"stonework", "stool", "stop", "stopsign", "stopwatch", "storage", "store", "storey", "storm", "story", 
+		"storyboard", "story-telling", "stove", "strain", "strait", "stranger", "strap", "strategy", "straw", "strawberry", 
+		"stream", "street", "streetcar", "strength", "stress", "stretch", "strike", "string", "strip", "stroke", 
+		"structure", "struggle", "stud", "student", "studio", "study", "stuff", "stumbling", "stupid", "stupidity", 
+		"sturgeon", "style", "styling", "stylus", "subcomponent", "subconscious", "subject", "submarine", "subroutine", "subsidence", 
+		"substance", "suburb", "subway", "success", "suck", "suede", "suffocation", "sugar", "suggestion", "suit", 
+		"suitcase", "sultan", "summer", "sun", "sunbeam", "sunbonnet", "sunday", "sundial", "sunflower", "sunglasses", 
+		"sunlamp", "sunroom", "sunshine", "supermarket", "supply", "support", "supporter", "suppression", "surface", "surfboard", 
+		"surgeon", "surgery", "surname", "surprise", "surround", "survey", "sushi", "suspect", "suspenders", "sustainment", 
+		"SUV", "swallow", "swamp", "swan", "swath", "sweat", "sweater", "sweats", "sweatshirt", "sweatshop", 
+		"sweatsuit", "swedish", "sweet", "sweets", "swell", "swim", "swimming", "swimsuit", "swing", "swiss", 
+		"switch", "switchboard", "swivel", "sword", "swordfish", "sycamore", "symmetry", "sympathy", "syndicate", "synergy", 
+		"synod", "syrup", "system", "tabby", "tabernacle", "table", "tablecloth", "tabletop", "tachometer", "tackle", 
+		"tadpole", "tail", "tailor", "tailspin", "tale", "talk", "tam", "tambour", "tambourine", "tam-o'-shanter", 
+		"tandem", "tangerine", "tank", "tanker", "tankful", "tank-top", "tap", "tard", "target", "task", 
+		"tassel", "taste", "tatami", "tattler", "tattoo", "tavern", "tax", "taxi", "taxicab", "tea", 
+		"teach", "teacher", "teaching", "team", "tear", "technologist", "technology", "teen", "teeth", "telephone", 
+		"telescreen", "teletype", "television", "tell", "teller", "temp", "temper", "temperature", "temple", "tempo", 
+		"temporariness", "temporary", "temptress", "tendency", "tenement", "tennis", "tenor", "tension", "tent", "tepee", 
+		"term", "terracotta", "terrapin", "territory", "test", "text", "textbook", "texture", "thanks", "thaw", 
+		"theater", "theism", "theme", "theory", "therapist", "thermals", "thermometer", "thigh", "thing", "thinking", 
+		"thirst", "thistle", "thomas", "thong", "thongs", "thorn", "thought", "thread", "thrill", "throat", 
+		"throne", "thrush", "thumb", "thunder", "thunderbolt", "thunderhead", "thunderstorm", "tiara", "tic", "ticket", 
+		"tie", "tiger", "tight", "tights", "tile", "till", "timbale", "timber", "time", "timeline", 
+		"timeout", "timer", "timpani", "tin", "tinderbox", "tinkle", "tintype", "tip", "tire", "tissue", 
+		"titanium", "title", "toad", "toast", "today", "toe", "toenail", "toga", "togs", "toilet", 
+		"tolerance", "tom", "tomato", "tomography", "tomorrow", "tom-tom", "ton", "tone", "tongue", "tonight", 
+		"tool", "toot", "tooth", "toothbrush", "toothpaste", "toothpick", "top", "top-hat", "topic", "topsail", 
+		"toque", "torchiere", "toreador", "tornado", "torso", "tortellini", "tortoise", "tosser", "total", "tote", 
+		"touch", "tough", "tough-guy", "tour", "tourist", "towel", "tower", "town", "townhouse", "tow-truck", 
+		"toy", "trachoma", "track", "tracksuit", "tractor", "trade", "tradition", "traditionalism", "traffic", "trail", 
+		"trailer", "train", "trainer", "training", "tram", "tramp", "transaction", "transition", "translation", "transmission", 
+		"transom", "transport", "transportation", "trapdoor", "trapezium", "trapezoid", "trash", "travel", "tray", "treat", 
+		"treatment", "tree", "trellis", "tremor", "trench", "trial", "triangle", "tribe", "trick", "trigonometry", 
+		"trim", "trinket", "trip", "tripod", "trolley", "trombone", "trooper", "trouble", "trousers", "trout", 
+		"trove", "trowel", "truck", "truckit", "trumpet", "trunk", "trust", "truth", "try", "t-shirt", 
+		"tsunami", "tub", "tuba", "tube", "tugboat", "tulip", "tummy", "tuna", "tune", "tune-up", 
+		"tunic", "tunnel", "turban", "turkish", "turn", "turnip", "turnover", "turnstile", "turret", "turtle", 
+		"tussle", "tutu", "tuxedo", "tv", "twig", "twilight", "twine", "twist", "twister", "two", 
+		"type", "typewriter", "typhoon", "tyvek", "ukulele", "umbrella", "unblinking", "uncle", "underclothes", "underground", 
+		"underneath", "underpants", "underpass", "undershirt", "understanding", "underwear", "underwire", "unemployment", "unibody", "uniform", 
+		"union", "unique", "unit", "unity", "university", "upper", "upstairs", "urn", "usage", "use", 
+		"user", "usher", "usual", "utensil", "vacation", "vacuum", "vagrant", "valance", "validity", "valley", 
+		"valuable", "value", "van", "vane", "vanity", "variation", "variety", "vase", "vast", "vault", 
+		"vaulting", "veal", "vegetable", "vegetarianism", "vegetation", "vehicle", "veil", "vein", "veldt", "vellum", 
+		"velodrome", "velvet", "vengeance", "venom", "veranda", "verdict", "vermicelli", "verse", "version", "vertigo", 
+		"verve", "vessel", "vest", "vestment", "vibe", "vibraphone", "vibration", "video", "view", "villa", 
+		"village", "vineyard", "vinyl", "viola", "violence", "violet", "violin", "virginal", "virtue", "virus", 
+		"viscose", "vise", "vision", "visit", "visitor", "visor", "visual", "vitality", "vixen", "voice", 
+		"volcano", "volleyball", "volume", "voyage", "vulture", "wad", "wafer", "waffle", "waist", "waistband", 
+		"wait", "waiter", "waitress", "wake", "walk", "walker", "walkway", "wall", "wallaby", "wallet", 
+		"walnut", "walrus", "wampum", "wannabe", "war", "warden", "warlock", "warmth", "warm-up", "warning", 
+		"wash", "washbasin", "washcloth", "washer", "washtub", "wasp", "waste", "wastebasket", "watch", "watchmaker", 
+		"water", "waterbed", "waterfall", "waterskiing", "waterspout", "wave", "wax", "way", "weakness", "wealth", 
+		"weapon", "wear", "weasel", "weather", "web", "wedding", "wedge", "weed", "weeder", "weedkiller", 
+		"week", "weekend", "weekender", "weight", "weird", "welcome", "welfare", "well", "west", "western", 
+		"wet-bar", "wetsuit", "whale", "wharf", "wheat", "wheel", "whereas", "while", "whip", "whirlpool", 
+		"whirlwind", "whisker", "whiskey", "whistle", "white", "whole", "wholesale", "wholesaler", "whorl", "width", 
+		"wife", "wilderness", "wildlife", "will", "willow", "win", "wind", "windage", "wind-chime", "window", 
+		"windscreen", "windshield", "wine", "wing", "wingman", "wingtip", "winner", "winter", "wire", "wisdom", 
+		"wiseguy", "wish", "wisteria", "witch", "witch-hunt", "withdrawal", "witness", "wolf", "woman", "wombat", 
+		"women", "wonder", "wood", "woodland", "woodshed", "woodwind", "wool", "woolen", "word", "work", 
+		"workbench", "worker", "workhorse", "working", "worklife", "workshop", "world", "worm", "worry", "worth", 
+		"worthy", "wound", "wrap", "wraparound", "wrecker", "wren", "wrench", "wrestler", "wrinkle", "wrist", 
+		"writer", "writing", "wrong", "xylophone", "yacht", "yak", "yam", "yard", "yarmulke", "yarn", 
+		"yawl", "year", "yeast", "yellow", "yesterday", "yew", "yin", "yoga", "yogurt", "yoke", 
+		"you", "young", "youth", "yurt", "zampone", "zebra", "zebrafish", "zephyr", "ziggurat", "zinc", 
+		"zipper", "zither", "zone", "zoo", "zoologist", "zoology", "zoot-suit", "zucchini"],
+
+	determiner: ["the", "a", "an", "another", "no", "some", "any", "my", "our", "their", 
+		"her", "his", "its", "each", "every", "certain", "this", "that", "one", "two", 
+		"three", "ten", "ten-thousand", "eighty-billion"],
+
+	verb: ["is", "are", "has", "get", "see", "need", "know", "would", "find", "take", 
+		"want", "does", "learn", "become", "come", "include", "thank", "provide", "create", "add", 
+		"understand", "consider", "choose", "develop", "remember", "determine", "grow", "allow", "supply", "bring", 
+		"improve", "maintain", "begin", "exist", "tend", "enjoy", "perform", "decide", "identify", "continue", 
+		"protect", "require", "occur", "write", "approach", "avoid", "prepare", "build", "achieve", "believe", 
+		"receive", "seem", "discuss", "realize", "contain", "follow", "refer", "solve", "describe", "prefer", 
+		"prevent", "discover", "ensure", "expect", "invest", "reduce", "speak", "appear", "explain", "explore", 
+		"involve", "lose", "afford", "agree", "hear", "remain", "represent", "apply", "forget", "recommend", 
+		"rely", "vary", "generate", "obtain", "accept", "communicate", "complain", "depend", "enter", "happen", 
+		"indicate", "suggest", "survive", "appreciate", "compare", "imagine", "manage", "differ", "encourage", "expand", 
+		"prove", "react", "recognize", "relax", "replace", "borrow", "earn", "emphasize", "enable", "operate", 
+		"reflect", "send", "anticipate", "assume", "engage", "enhance", "examine", "install", "participate", "intend", 
+		"introduce", "relate", "settle", "assure", "attract", "distribute", "overcome", "owe", "succeed", "suffer", 
+		"throw", "acquire", "adapt", "adjust", "argue", "arise", "confirm", "encouraging", "incorporate", "justify", 
+		"organize", "ought", "possess", "relieve", "retain", "shut", "calculate", "compete", "consult", "deliver", 
+		"extend", "investigate", "negotiate", "qualify", "retire", "rid", "weigh", "arrive", "attach", "behave", 
+		"celebrate", "convince", "disagree", "establish", "ignore", "imply", "insist", "pursue", "remaining", "specify", 
+		"warn", "accuse", "admire", "admit", "adopt", "announce", "apologize", "approve", "attend", "belong", 
+		"commit", "criticize", "deserve", "destroy", "hesitate", "illustrate", "inform", "manufacturing", "persuade", "pour", 
+		"propose", "remind", "shall", "submit", "suppose", "translate", "be", "have", "use", "make", 
+		"look", "help", "go", "being", "think", "read", "keep", "start", "give", "play", 
+		"feel", "put", "set", "change", "say", "cut", "show", "try", "check", "call", 
+		"move", "pay", "let", "increase", "turn", "ask", "buy", "guard", "hold", "offer", 
+		"travel", "cook", "dance", "excuse", "live", "purchase", "deal", "mean", "fall", "produce", 
+		"search", "spend", "talk", "upset", "tell", "cost", "drive", "support", "remove", "return", 
+		"run", "appropriate", "reserve", "leave", "reach", "rest", "serve", "watch", "charge", "break", 
+		"stay", "visit", "affect", "cover", "report", "rise", "walk", "pick", "lift", "mix", 
+		"stop", "teach", "concern", "fly", "born", "gain", "save", "stand", "fail", "lead", 
+		"listen", "worry", "express", "handle", "meet", "release", "sell", "finish", "press", "ride", 
+		"spread", "spring", "wait", "display", "flow", "hit", "shoot", "touch", "cancel", "cry", 
+		"dump", "push", "select", "conflict", "die", "eat", "fill", "jump", "kick", "pass", 
+		"pitch", "treat", "abuse", "beat", "burn", "deposit", "print", "raise", "sleep", "advance", 
+		"connect", "consist", "contribute", "draw", "fix", "hire", "join", "kill", "sit", "tap", 
+		"win", "attack", "claim", "drag", "drink", "guess", "pull", "wear", "wonder", "count", 
+		"doubt", "feed", "impress", "repeat", "seek", "sing", "slide", "strip", "wish", "collect", 
+		"combine", "command", "dig", "divide", "hang", "hunt", "march", "mention", "smell", "survey", 
+		"tie", "escape", "expose", "gather", "hate", "repair", "scratch", "strike", "employ", "hurt", 
+		"laugh", "lay", "respond", "split", "strain", "struggle", "swim", "train", "wash", "waste", 
+		"convert", "crash", "fold", "grab", "hide", "miss", "permit", "quote", "recover", "resolve", 
+		"roll", "sink", "slip", "suspect", "swing", "twist", "concentrate", "estimate", "prompt", "refuse", 
+		"regret", "reveal", "rush", "shake", "shift", "shine", "steal", "suck", "surround", "bear", 
+		"dare", "delay", "hurry", "invite", "kiss", "marry", "pop", "pray", "pretend", "punch", 
+		"quit", "reply", "resist", "rip", "rub", "smile", "spell", "stretch", "tear", "wake", 
+		"wrap", "was", "like", "even", "film", "water", "been", "well", "were", "example", 
+		"own", "study", "must", "form", "air", "place", "number", "part", "field", "fish", 
+		"process", "heat", "hand", "experience", "job", "book", "end", "point", "type", "value", 
+		"body", "market", "guide", "interest", "state", "radio", "course", "company", "price", "size", 
+		"card", "list", "mind", "trade", "line", "care", "group", "risk", "word", "force", 
+		"light", "name", "school", "amount", "order", "practice", "research", "sense", "service", "piece", 
+		"web", "boss", "sport", "page", "term", "test", "answer", "sound", "focus", "matter", 
+		"soil", "board", "oil", "picture", "access", "garden", "open", "range", "rate", "reason", 
+		"according", "site", "demand", "exercise", "image", "case", "cause", "coast", "age", "boat", 
+		"record", "result", "section", "building", "mouse", "cash", "class", "dry", "plan", "store", 
+		"tax", "involved", "side", "space", "rule", "weather", "figure", "man", "model", "source", 
+		"earth", "program", "design", "feature", "purpose", "question", "rock", "act", "birth", "dog", 
+		"object", "scale", "sun", "fit", "note", "profit", "related", "rent", "speed", "style", 
+		"war", "bank", "content", "craft", "bus", "exchange", "eye", "fire", "position", "pressure", 
+		"stress", "advantage", "benefit", "box", "complete", "frame", "issue", "limited", "step", "cycle", 
+		"face", "interested", "metal", "paint", "review", "room", "screen", "structure", "view", "account", 
+		"ball", "concerned", "discipline", "ready", "share", "balance", "bit", "black", "bottom", "gift", 
+		"impact", "machine", "shape", "tool", "wind", "address", "average", "career", "culture", "pot", 
+		"sign", "table", "task", "condition", "contact", "credit", "egg", "hope", "ice", "network", 
+		"separate", "attempt", "date", "effect", "link", "perfect", "post", "star", "voice", "challenge", 
+		"friend", "warm", "brush", "couple", "debate", "exit", "experienced", "function", "lack", "plant", 
+		"spot", "summer", "taste", "theme", "track", "wing", "brain", "button", "click", "correct", 
+		"desire", "fixed", "foot", "gas", "influence", "notice", "rain", "wall", "base", "damage", 
+		"distance", "pair", "staff", "sugar", "target", "text", "author", "complicated", "discount", "file", 
+		"ground", "lesson", "officer", "phase", "reference", "register", "secure", "sky", "stage", "stick", 
+		"title", "trouble", "advanced", "bowl", "bridge", "campaign", "club", "edge", "evidence", "fan", 
+		"letter", "lock", "option", "organized", "pack", "park", "quarter", "skin", "sort", "weight", 
+		"baby", "carry", "dish", "exact", "factor", "fruit", "muscle", "traffic", "trip", "appeal", 
+		"chart", "gear", "land", "log", "lost", "net", "season", "spirit", "tree", "wave", 
+		"belt", "bench", "closed", "commission", "copy", "drop", "firm", "frequent", "progress", "project", 
+		"stuff", "ticket", "tour", "angle", "blue", "breakfast", "doctor", "dot", "dream", "essay", 
+		"father", "fee", "finance", "juice", "limit", "luck", "milk", "mixed", "mouth", "pipe", 
+		"please", "seat", "stable", "storm", "team", "amazing", "bat", "beach", "blank", "busy", 
+		"catch", "chain", "cream", "crew", "detail", "detailed", "interview", "kid", "mark", "match", 
+		"pain", "pleasure", "score", "screw", "sex", "sharp", "shop", "shower", "suit", "tone", 
+		"window", "wise", "band", "block", "bone", "calendar", "cap", "coat", "contest", "court", 
+		"cup", "district", "finger", "garage", "guarantee", "hole", "hook", "implement", "layer", "lecture", 
+		"lie", "married", "narrow", "nose", "partner", "profile", "respect", "rice", "schedule", "telephone", 
+		"tip", "bag", "battle", "bed", "bill", "bother", "cake", "code", "curve", "dimension", 
+		"ease", "farm", "fight", "gap", "grade", "horse", "host", "husband", "loan", "mistake", 
+		"nail", "noise", "occasion", "package", "pause", "phrase", "race", "sand", "sentence", "shoulder", 
+		"smoke", "stomach", "string", "surprised", "towel", "vacation", "wheel", "arm", "associate", "bet", 
+		"blow", "border", "branch", "breast", "buddy", "bunch", "chip", "coach", "cross", "document", 
+		"draft", "dust", "floor", "golf", "habit", "iron", "judge", "knife", "landscape", "league", 
+		"mail", "mess", "parent", "pattern", "pin", "pool", "pound", "request", "salary", "shame", 
+		"shelter", "shoe", "tackle", "tank", "trust", "assist", "bake", "bar", "bell", "bike", 
+		"blame", "brick", "chair", "closet", "clue", "collar", "comment", "conference", "devil", "diet", 
+		"fear", "fuel", "glove", "jacket", "lunch", "monitor", "mortgage", "nurse", "pace", "panic", 
+		"peak", "provided", "reward", "row", "sandwich", "shock", "spite", "spray", "surprise", "till", 
+		"transition", "weekend", "yard", "alarm", "bend", "bicycle", "bite", "blind", "bottle", "cable", 
+		"candle", "clerk", "cloud", "concert", "counter", "dirty", "flower", "grandfather", "harm", "knee", 
+		"lawyer", "load", "loose", "mirror", "neck", "pension", "plate", "pleased", "proposed", "ruin", 
+		"ship", "skirt", "slice", "snow", "stroke", "switch", "tired", "trash", "tune", "worried", 
+		"zone", "anger", "award", "bid", "boot", "bug", "camp", "candy", "carpet", "cat", 
+		"champion", "channel", "clock", "comfort", "cow", "crack", "disappointed", "empty", "engineer", "entrance", 
+		"fault", "grass", "guy", "highlight", "island", "joke", "jury", "leg", "lip", "mate", 
+		"nerve", "passage", "pen", "pride", "priest", "promise", "resort", "ring", "roof", "rope", 
+		"sail", "scheme", "script", "slight", "smart", "sock", "station", "toe", "tower", "truck", 
+		"witness"],
+
+	adjective: ["different", "used", "important", "every", "large", "available", "popular", "able", "basic", "known", 
+		"various", "difficult", "several", "united", "historical", "hot", "useful", "mental", "scared", "additional", 
+		"emotional", "old", "political", "similar", "healthy", "financial", "medical", "traditional", "federal", "entire", 
+		"strong", "actual", "significant", "successful", "electrical", "expensive", "pregnant", "intelligent", "interesting", "poor", 
+		"happy", "responsible", "cute", "helpful", "recent", "willing", "nice", "wonderful", "impossible", "serious", 
+		"huge", "rare", "technical", "typical", "competitive", "critical", "electronic", "immediate", "aware", "educational", 
+		"environmental", "global", "legal", "relevant", "accurate", "capable", "dangerous", "dramatic", "efficient", "powerful", 
+		"foreign", "hungry", "practical", "psychological", "severe", "suitable", "numerous", "sufficient", "unusual", "consistent", 
+		"cultural", "existing", "famous", "pure", "afraid", "obvious", "careful", "latter", "unhappy", "acceptable", 
+		"aggressive", "boring", "distinct", "eastern", "logical", "reasonable", "strict", "administrative", "automatic", "civil", 
+		"former", "massive", "southern", "unfair", "visible", "alive", "angry", "desperate", "exciting", "friendly", 
+		"lucky", "realistic", "sorry", "ugly", "unlikely", "anxious", "comprehensive", "curious", "impressive", "informal", 
+		"inner", "pleasant", "sexual", "sudden", "terrible", "unable", "weak", "wooden", "asleep", "confident", 
+		"conscious", "decent", "embarrassed", "guilty", "lonely", "mad", "nervous", "odd", "remarkable", "substantial", 
+		"suspicious", "tall", "tiny", "more", "some", "one", "all", "many", "most", "other", 
+		"such", "even", "new", "just", "good", "any", "each", "much", "own", "great", 
+		"another", "same", "few", "free", "right", "still", "best", "public", "human", "both", 
+		"local", "sure", "better", "general", "specific", "enough", "long", "small", "less", "high", 
+		"certain", "little", "common", "next", "simple", "hard", "past", "big", "possible", "particular", 
+		"real", "major", "personal", "current", "left", "national", "least", "natural", "physical", "short", 
+		"last", "single", "individual", "main", "potential", "professional", "international", "lower", "open", "according", 
+		"alternative", "special", "working", "True", "whole", "clear", "dry", "easy", "cold", "commercial", 
+		"full", "low", "primary", "worth", "necessary", "positive", "present", "close", "creative", "green", 
+		"late", "fit", "glad", "proper", "complex", "content", "due", "effective", "middle", "regular", 
+		"fast", "independent", "original", "wide", "beautiful", "complete", "active", "negative", "safe", "visual", 
+		"wrong", "ago", "quick", "ready", "straight", "white", "direct", "excellent", "extra", "junior", 
+		"pretty", "unique", "classic", "final", "overall", "private", "separate", "western", "alone", "familiar", 
+		"official", "perfect", "bright", "broad", "comfortable", "flat", "rich", "warm", "young", "heavy", 
+		"valuable", "correct", "leading", "slow", "clean", "fresh", "normal", "secret", "tough", "brown", 
+		"cheap", "deep", "objective", "secure", "thin", "chemical", "cool", "extreme", "exact", "fair", 
+		"fine", "formal", "opposite", "remote", "total", "vast", "lost", "smooth", "dark", "double", 
+		"equal", "firm", "frequent", "internal", "sensitive", "constant", "minor", "previous", "raw", "soft", 
+		"solid", "weird", "amazing", "annual", "busy", "dead", "False", "round", "sharp", "thick", 
+		"wise", "equivalent", "initial", "narrow", "nearby", "proud", "spiritual", "wild", "adult", "apart", 
+		"brief", "crazy", "prior", "rough", "sad", "sick", "strange", "external", "illegal", "loud", 
+		"mobile", "nasty", "ordinary", "royal", "senior", "super", "tight", "upper", "yellow", "dependent", 
+		"funny", "gross", "ill", "spare", "sweet", "upstairs", "usual", "brave", "calm", "dirty", 
+		"downtown", "grand", "honest", "loose", "male", "quiet", "brilliant", "dear", "drunk", "empty", 
+		"female", "inevitable", "neat", "ok", "representative", "silly", "slight", "smart", "stupid", "temporary", 
+		"weekly", "that", "this", "what", "which", "time", "these", "work", "no", "only", 
+		"then", "first", "money", "over", "business", "his", "game", "think", "after", "life", 
+		"day", "home", "economy", "away", "either", "fat", "key", "training", "top", "level", 
+		"far", "fun", "house", "kind", "future", "action", "live", "period", "subject", "mean", 
+		"stock", "chance", "beginning", "upset", "chicken", "head", "material", "salt", "car", "appropriate", 
+		"inside", "outside", "standard", "medium", "choice", "north", "square", "born", "capital", "shot", 
+		"front", "living", "plastic", "express", "feeling", "otherwise", "plus", "savings", "animal", "budget", 
+		"minute", "character", "maximum", "novel", "plenty", "select", "background", "forward", "glass", "joint", 
+		"master", "red", "vegetable", "ideal", "kitchen", "mother", "party", "relative", "signal", "street", 
+		"connect", "minimum", "sea", "south", "status", "daughter", "hour", "trick", "afternoon", "gold", 
+		"mission", "agent", "corner", "east", "neither", "parking", "routine", "swimming", "winter", "airline", 
+		"designer", "dress", "emergency", "evening", "extension", "holiday", "horror", "mountain", "patient", "proof", 
+		"west", "wine", "expert", "native", "opening", "silver", "waste", "plane", "leather", "purple", 
+		"specialist", "bitter", "incident", "motor", "pretend", "prize", "resident"],
+
+	adverb: ["not", "also", "very", "often", "however", "too", "usually", "really", "early", "never", 
+		"always", "sometimes", "together", "likely", "simply", "generally", "instead", "actually", "again", "rather", 
+		"almost", "especially", "ever", "quickly", "probably", "already", "below", "directly", "therefore", "else", 
+		"thus", "easily", "eventually", "exactly", "certainly", "normally", "currently", "extremely", "finally", "constantly", 
+		"properly", "soon", "specifically", "ahead", "daily", "highly", "immediately", "relatively", "slowly", "fairly", 
+		"primarily", "completely", "ultimately", "widely", "recently", "seriously", "frequently", "fully", "mostly", "naturally", 
+		"nearly", "occasionally", "carefully", "clearly", "essentially", "possibly", "slightly", "somewhat", "equally", "greatly", 
+		"necessarily", "personally", "rarely", "regularly", "similarly", "basically", "closely", "effectively", "initially", "literally", 
+		"mainly", "merely", "gently", "hopefully", "originally", "roughly", "significantly", "totally", "twice", "elsewhere", 
+		"everywhere", "obviously", "perfectly", "physically", "successfully", "suddenly", "truly", "virtually", "altogether", "anyway", 
+		"automatically", "deeply", "definitely", "deliberately", "hardly", "readily", "terribly", "unfortunately", "forth", "briefly", 
+		"moreover", "strongly", "honestly", "previously", "as", "there", "when", "how", "so", "up", 
+		"out", "no", "only", "well", "then", "first", "where", "why", "now", "around", 
+		"once", "down", "off", "here", "tonight", "away", "today", "far", "quite", "later", 
+		"above", "yet", "maybe", "otherwise", "near", "forward", "somewhere", "anywhere", "please", "forever", 
+		"somehow", "absolutely", "abroad", "yeah", "nowhere", "tomorrow", "yesterday", "the", "to", "in", 
+		"on", "by", "more", "about", "such", "through", "new", "just", "any", "each", 
+		"much", "before", "between", "free", "right", "best", "since", "both", "sure", "without", 
+		"back", "better", "enough", "lot", "small", "though", "less", "little", "under", "next", 
+		"hard", "real", "left", "least", "short", "last", "within", "along", "lower", "True", 
+		"bad", "across", "clear", "easy", "full", "close", "late", "proper", "fast", "wide", 
+		"item", "wrong", "ago", "behind", "quick", "straight", "direct", "extra", "morning", "pretty", 
+		"overall", "alone", "bright", "flat", "whatever", "slow", "clean", "fresh", "whenever", "cheap", 
+		"thin", "cool", "fair", "fine", "smooth", "False", "thick", "collect", "nearby", "wild", 
+		"apart", "none", "strange", "tourist", "aside", "loud", "super", "tight", "gross", "ill", 
+		"downtown", "honest", "ok", "pray", "weekly"],
+
+	pronoun: ["all", "another", "any", "anybody", "anyone", "anything", "as", "both", "each", "either", 
+		"everybody", "everyone", "everything", "few", "he", "her", "hers", "herself", "him", "himself", 
+		"his", "I", "it", "itself", "many", "me", "mine", "most", "my", "myself", 
+		"neither", "no one", "nobody", "none", "nothing", "one", "other", "others", "our", "ours", 
+		"ourselves", "several", "she", "some", "somebody", "someone", "something", "such", "that", "thee", 
+		"their", "theirs", "them", "themselves", "these", "they", "thine", "this", "those", "thou", 
+		"thy", "us", "we", "what", "whatever", "which", "whichever", "who", "whoever", "whom", 
+		"whomever", "whose", "you", "your", "yours", "yourself", "yourselves"],
+
+	preposition: ["with", "at", "from", "into", "during", "including", "until", "against", "among", "throughout", 
+		"despite", "towards", "upon", "concerning", "of", "to", "in", "for", "on", "by", 
+		"about", "like", "through", "over", "before", "between", "after", "since", "without", "under", 
+		"within", "along", "following", "across", "behind", "beyond", "plus", "except", "but", "up", 
+		"out", "around", "down", "off", "above", "near"],
+
+	conjunction: ["and", "that", "but", "or", "as", "if", "when", "than", "because", "while", 
+		"where", "after", "so", "though", "since", "until", "whether", "before", "although", "nor", 
+		"like", "once", "unless", "now", "except"],
+};
+
+
+
+</script>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style>
+
+
+.unselectable {
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+}
+
+.butt
+{
+	font-size: fontSize;
+}
+
+</style>
+
+<body>
+
+
+
+
+<div id="otherDiv" class="unselectable"  style="position:relative;">
+	<canvas id="canv" oncontextmenu="return false;" style="border:3px solid black; position: absolute; z-index: 1;"></canvas>	
+	<canvas id="canvT" oncontextmenu="return false;"  style="border:3px solid black; position: absolute; z-index: 0"></canvas> <br>
+</div>
+
+<div id="buttDiv" class="unselectable"  style="position:relative;">
+	<button class="butt" type="button" id="lockIn" onclick = "lockIn();">Lock Word</button><br>
+	<button class="butt" type="button" id="end" onclick = "end();">End</button><br>
+	<button class="butt" type="button" id="restart" onclick = "restart();">New Sentence</button>
+	
+</div>
+
+</body>
+
+<script>
+
+
+
+
+
+const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+var cW = width * .95;
+var cH = height * .6;
+
+const fontSize = 50;
+const wordTStart = 20;
+
+const wordL = 20;
+const wordH = fontSize*1.4;
+const wordW = width * .8;
+var wordT;
+var buttclass = document.getElementsByClassName('butt');
+for (var i = 0; i < buttclass.length; i++) {
+  var butt = buttclass[i];
+  butt.style.fontSize = fontSize;
+}
+
+var curWord = "";
+var keyNames = Object.keys(wordTypes);
+var looper;
+
+var canv = document.getElementById("canv");
+var cx = canv.getContext("2d");
+canv.width = cW;
+canv.height = cH;
+canv.style.left = '20 px';
+canv.style.top = canv.style.left;
+cx.fillStyle = 'RGB(0,0,0)';
+cx.strokeStyle = 'RGB(0,0,0)';
+cx.font = fontSize + 'px Calibri';
+
+
+var canvT = document.getElementById("canvT");
+var cxT = canvT.getContext("2d");
+canvT.width = canv.width;
+canvT.height = canv.height;
+canvT.style.left = canv.style.left;
+canvT.style.top = canv.style.left;
+cxT.fillStyle = 'RGB(100,0,0)';
+cxT.strokeStyle = 'RGB(100,0,0)';
+cxT.font = fontSize + 'px Calibri';
+
+var curBut = document.getElementById("lockIn")
+curBut.style.width = width - 40 +'px';
+curBut.style.height = (height-canv.height-40)/3+'px';
+var curBut = document.getElementById("restart")
+curBut.style.width = width - 40 +'px';
+curBut.style.height = (height-canv.height-40)/3+'px';
+var curBut = document.getElementById("end")
+curBut.style.width = width - 40 +'px';
+curBut.style.height = (height-canv.height-40)/3+'px';
+
+var buttDiv = document.getElementById("buttDiv");
+buttDiv.style.top = canv.style.top + canv.height + 'px';
+
+function restart()
+{
+	clearInterval(looper);
+	wordT = wordTStart;
+	updateTemp();	
+	looper = setInterval(updateTemp, 800);
+	
+	cx.clearRect(0,0,cW, cH);
+	
+}
+
+function updateTemp()
+{
+
+	var typeInd = Math.floor(Math.random() * keyNames.length);
+	var wordType = keyNames[typeInd];
+	var wordInd = Math.floor(Math.random() * wordTypes[wordType].length);
+	curWord = wordTypes[wordType][wordInd];
+	console.log(wordType + ": " + curWord);
+	cxT.clearRect(0,0,cW,cH);
+	cxT.fillText(curWord, wordL, wordT+wordH/2);
+	cxT.strokeRect(wordL -5, wordT-5, wordW + 10, wordH);
+	
+}
+	
+
+function lockIn()
+{
+	if(curWord === "")
+		return;
+	cx.fillText(curWord, wordL, wordT+wordH/2);
+	
+	wordT += wordH;
+}
+
+function end()
+{
+	curWord = "";
+	clearInterval(looper);
+	cxT.clearRect(0,0,cW,cH);
+}
+
+
+
+
+
+</script>
+  
